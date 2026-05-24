@@ -64,7 +64,7 @@
                 </div>
 
                 <!-- Cover Image Upload (Optional) -->
-                <div class="space-y-4">
+                {{-- <div class="space-y-4">
                     <label class="font-ui-label text-ui-label text-on-surface">Cover Image (Optional)</label>
                     <div
                         class="relative group cursor-pointer border-2 border-dashed border-outline-variant/50 rounded-xl p-8 hover:border-primary-container transition-colors bg-surface-container-low/30">
@@ -81,7 +81,7 @@
                             </div>
                         </div>
                     </div>
-                </div>
+                </div> --}}
 
                 <!-- Form Actions -->
                 <div class="pt-6 flex flex-col-reverse md:flex-row gap-4 border-t border-outline-variant/30">
