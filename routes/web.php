@@ -9,9 +9,11 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', [PageController::class, 'feed'])->name('feed');
 Route::get('/article/{id}', [PageController::class, 'article'])->name('article');
 Route::get('/author/{id}', [PageController::class, 'authorProfile'])->name('author.profile');
+Route::get('/author/julian-vane', [PageController::class, 'authorProfileJulian'])->name('author.julian');
 Route::get('/category/{slug}', [PageController::class, 'categoryHub'])->name('category.hub');
 Route::get('/tag/{slug}', [PageController::class, 'tagArchive'])->name('tag.archive');
 Route::get('/search', [PageController::class, 'search'])->name('search');
+Route::get('/subscription/complete', [PageController::class, 'completeSubscription'])->name('subscription.complete');
 
 // Auth pages
 Route::get('/sign-in', [PageController::class, 'signIn'])->name('auth.sign-in');
@@ -37,6 +39,7 @@ Route::get('/manage/tags', [PageController::class, 'tags'])->name('manage.tags')
 Route::get('/manage/tags/create', [PageController::class, 'createTag'])->name('manage.tags.create');
 Route::get('/manage/content', [PageController::class, 'content'])->name('manage.content');
 Route::get('/manage/members', [PageController::class, 'members'])->name('manage.members');
+Route::get('/manage/members/sarah', [PageController::class, 'memberSarah'])->name('manage.members.sarah');
 Route::get('/manage/invite', [PageController::class, 'invite'])->name('manage.invite');
 
 // Settings pages

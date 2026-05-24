@@ -10,9 +10,11 @@ class PageController extends Controller
     public function feed() { return view('public.feed'); }
     public function article($id) { return view('public.article'); }
     public function authorProfile($id) { return view('public.author-profile'); }
+    public function authorProfileJulian() { return view('public.author-profile-julian'); }
     public function categoryHub($slug) { return view('public.category-hub'); }
     public function tagArchive($slug) { return view('public.tag-archive'); }
     public function search() { return view('public.search-results'); }
+    public function completeSubscription() { return view('public.complete-subscription'); }
     
     // Auth pages
     public function signIn() { return view('auth.sign-in'); }
@@ -38,6 +40,7 @@ class PageController extends Controller
     public function createTag() { return view('management.create-tag'); }
     public function content() { return view('management.content'); }
     public function members() { return view('management.members'); }
+    public function memberSarah() { return view('management.member-sarah'); }
     public function invite() { return view('management.invite'); }
     
     // Settings pages
