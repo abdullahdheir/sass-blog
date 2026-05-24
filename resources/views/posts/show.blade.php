@@ -1,64 +1,52 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Post Details</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-</head>
-<body class="bg-gray-100 min-h-screen">
-    <div class="container mx-auto px-4 py-8">
-        <div class="max-w-2xl mx-auto">
-            <div class="flex justify-between items-center mb-6">
-                <h1 class="text-3xl font-bold text-gray-800">Post Details</h1>
-                <a href="{{ route('posts.index') }}" class="text-gray-600 hover:text-gray-800">Back to Posts</a>
+@extends('layouts.public')
+
+@section('title', $post->title . ' - Ink & Paper')
+
+@section('page-content')
+    <!-- Article Header -->
+    <header class="mb-12">
+        <h1 class="font-display-lg text-display-lg-mobile md:text-display-lg text-on-surface mb-4">{{ $post->title }}</h1>
+        <div class="flex items-center gap-4 text-on-surface-variant">
+            <div class="flex items-center gap-2">
+                <span class="material-symbols-outlined text-sm">person</span>
+                <span class="font-metadata text-metadata">Author</span>
             </div>
-
-            <div class="bg-white shadow-lg rounded-lg p-6">
-                <div class="mb-4">
-                    <span class="text-gray-500 text-sm">ID</span>
-                    <p class="text-gray-900 font-semibold">{{ $post->id }}</p>
-                </div>
-
-                <div class="mb-4">
-                    <span class="text-gray-500 text-sm">Title</span>
-                    <p class="text-gray-900 font-semibold">{{ $post->title }}</p>
-                </div>
-
-                <div class="mb-4">
-                    <span class="text-gray-500 text-sm">Category</span>
-                    <p class="text-gray-900">{{ $post->category ? $post->category->name : 'No category' }}</p>
-                </div>
-
-                <div class="mb-4">
-                    <span class="text-gray-500 text-sm">Content</span>
-                    <p class="text-gray-900 whitespace-pre-wrap">{{ $post->content }}</p>
-                </div>
-
-                <div class="mb-4">
-                    <span class="text-gray-500 text-sm">Created At</span>
-                    <p class="text-gray-900">{{ $post->created_at->format('M d, Y H:i') }}</p>
-                </div>
-
-                <div class="mb-4">
-                    <span class="text-gray-500 text-sm">Updated At</span>
-                    <p class="text-gray-900">{{ $post->updated_at->format('M d, Y H:i') }}</p>
-                </div>
-
-                <div class="mt-6 pt-6 border-t">
-                    <a href="{{ route('posts.edit', $post->id) }}" class="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded mr-3 transition duration-200">
-                        Edit
-                    </a>
-                    <form action="{{ route('posts.destroy', $post->id) }}" method="POST" class="inline">
-                        @csrf
-                        @method('DELETE')
-                        <button type="submit" class="bg-red-500 hover:bg-red-600 text-white font-bold py-2 px-4 rounded transition duration-200" onclick="return confirm('Are you sure you want to delete this post?')">
-                            Delete
-                        </button>
-                    </form>
-                </div>
+            <div class="h-4 w-[1px] bg-outline-variant/50"></div>
+            <div class="flex items-center gap-2">
+                <span class="material-symbols-outlined text-sm">calendar_today</span>
+                <span class="font-metadata text-metadata">{{ $post->created_at->format('M d, Y') }}</span>
             </div>
+            @if ($post->category)
+                <div class="h-4 w-[1px] bg-outline-variant/50"></div>
+                <div class="flex items-center gap-2">
+                    <span class="material-symbols-outlined text-sm">category</span>
+                    <span class="font-metadata text-metadata">{{ $post->category->name }}</span>
+                </div>
+            @endif
+        </div>
+    </header>
+
+    <!-- Article Content -->
+    <article class="font-body-lg text-body-lg text-on-surface leading-relaxed space-y-6">
+        {!! $post->content !!}
+    </article>
+
+    <!-- Article Actions -->
+    <div class="mt-12 pt-8 border-t border-outline-variant">
+        <div class="flex items-center justify-between">
+            <a href="{{ route('posts.edit', $post->id) }}" class="flex items-center gap-2 text-primary hover:underline">
+                <span class="material-symbols-outlined">edit</span>
+                Edit Post
+            </a>
+            <form action="{{ route('posts.destroy', $post->id) }}" method="POST" class="inline">
+                @csrf
+                @method('DELETE')
+                <button type="submit" class="flex items-center gap-2 text-error hover:underline"
+                    onclick="return confirm('Are you sure you want to delete this post?')">
+                    <span class="material-symbols-outlined">delete</span>
+                    Delete Post
+                </button>
+            </form>
         </div>
     </div>
-</body>
-</html>
+@endsection

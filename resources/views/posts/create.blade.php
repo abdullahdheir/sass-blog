@@ -1,70 +1,84 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Create Post</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-</head>
-<body class="bg-gray-100 min-h-screen">
-    <div class="container mx-auto px-4 py-8">
-        <div class="max-w-2xl mx-auto">
-            <div class="flex justify-between items-center mb-6">
-                <h1 class="text-3xl font-bold text-gray-800">Create Post</h1>
-                <a href="{{ route('posts.index') }}" class="text-gray-600 hover:text-gray-800">Back to Posts</a>
-            </div>
+@extends('layouts.dashboard')
 
-            <div class="bg-white shadow-lg rounded-lg p-6">
-                <form action="{{ route('posts.store') }}" method="POST">
-                    @csrf
+@section('title', 'Write Post - Ink & Paper')
 
-                    @if($errors->any())
-                        <div class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded mb-4">
-                            <ul class="list-disc list-inside">
-                                @foreach($errors->all() as $error)
-                                    <li>{{ $error }}</li>
-                                @endforeach
-                            </ul>
-                        </div>
-                    @endif
-
-                    <div class="mb-4">
-                        <label for="title" class="block text-gray-700 text-sm font-bold mb-2">Title</label>
-                        <input type="text" name="title" id="title" value="{{ old('title') }}" 
-                            class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline focus:border-blue-500"
-                            required>
-                    </div>
-
-                    <div class="mb-4">
-                        <label for="category_id" class="block text-gray-700 text-sm font-bold mb-2">Category</label>
-                        <select name="category_id" id="category_id" 
-                            class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline focus:border-blue-500">
-                            <option value="">-- Select a Category --</option>
-                            @foreach($categories as $category)
-                                <option value="{{ $category->id }}" {{ old('category_id') == $category->id ? 'selected' : '' }}>
-                                    {{ $category->name }}
-                                </option>
-                            @endforeach
-                        </select>
-                    </div>
-
-                    <div class="mb-6">
-                        <label for="content" class="block text-gray-700 text-sm font-bold mb-2">Content</label>
-                        <textarea name="content" id="content" rows="6"
-                            class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline focus:border-blue-500" required>{{ old('content') }}</textarea>
-                    </div>
-
-                    <div class="flex items-center justify-between">
-                        <button type="submit" class="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline transition duration-200">
-                            Create Post
-                        </button>
-                        <a href="{{ route('posts.index') }}" class="inline-block align-baseline font-bold text-sm text-blue-500 hover:text-blue-800">
-                            Cancel
-                        </a>
-                    </div>
-                </form>
-            </div>
+@section('page-content')
+    <!-- Header Section -->
+    <div class="flex items-center justify-between mb-8">
+        <div class="flex items-center gap-2 text-primary font-ui-label text-ui-label">
+            <span class="material-symbols-outlined text-[18px]">arrow_back</span>
+            <a class="hover:underline" href="{{ route('posts.index') }}">Back to Posts</a>
+        </div>
+        <div class="flex items-center gap-2 px-3 py-1 bg-surface-container-low rounded-full border border-outline-variant">
+            <span class="material-symbols-outlined text-[18px] text-primary">cloud_done</span>
+            <span class="font-metadata text-metadata text-secondary">Auto-saved</span>
         </div>
     </div>
-</body>
-</html>
+
+    <!-- Editor Canvas -->
+    <div class="max-w-article-max mx-auto w-full">
+        <div class="editor-container">
+            <form action="{{ route('posts.store') }}" method="POST">
+                @csrf
+
+                @if ($errors->any())
+                    <div class="bg-error-container border border-error text-on-error-container px-4 py-3 rounded mb-4">
+                        <ul class="list-disc list-inside">
+                            @foreach ($errors->all() as $error)
+                                <li>{{ $error }}</li>
+                            @endforeach
+                        </ul>
+                    </div>
+                @endif
+
+                <!-- Title Field -->
+                <div class="mb-8">
+                    <label
+                        class="font-ui-label text-ui-label text-on-surface-variant block mb-2 uppercase tracking-wider">Title</label>
+                    <input
+                        class="w-full bg-transparent border-none focus:ring-0 font-display-lg text-display-lg resize-none placeholder:text-surface-variant text-on-surface"
+                        name="title" placeholder="Enter your title..." type="text" value="{{ old('title') }}"
+                        required>
+                </div>
+
+                <!-- Category Selection -->
+                <div class="mb-8">
+                    <label
+                        class="font-ui-label text-ui-label text-on-surface-variant block mb-2 uppercase tracking-wider">Category</label>
+                    <select
+                        class="w-full bg-white border border-outline-variant rounded-lg px-4 py-3 font-ui-label text-ui-label focus:ring-1 focus:ring-primary focus:border-primary transition-all"
+                        name="category_id">
+                        <option value="">-- Select a Category --</option>
+                        @foreach ($categories as $category)
+                            <option value="{{ $category->id }}" {{ old('category_id') == $category->id ? 'selected' : '' }}>
+                                {{ $category->name }}
+                            </option>
+                        @endforeach
+                    </select>
+                </div>
+
+                <!-- Main Content Editor -->
+                <div class="mb-8">
+                    <label
+                        class="font-ui-label text-ui-label text-on-surface-variant block mb-2 uppercase tracking-wider">Content</label>
+                    <textarea
+                        class="w-full min-h-[400px] bg-surface-container-lowest border border-outline-variant rounded-lg px-4 py-3 font-body-lg text-body-lg text-on-surface leading-relaxed placeholder:text-surface-variant focus:ring-1 focus:ring-primary focus:border-primary transition-all resize-none"
+                        name="content" placeholder="Type your story..." rows="15" required>{{ old('content') }}</textarea>
+                </div>
+
+                <!-- Form Actions -->
+                <div class="flex items-center justify-between pt-6 border-t border-outline-variant">
+                    <a href="{{ route('posts.index') }}"
+                        class="flex items-center gap-2 px-4 py-2 font-ui-button text-ui-button text-secondary hover:text-on-surface transition-colors">
+                        <span class="material-symbols-outlined">cancel</span>
+                        Cancel
+                    </a>
+                    <button type="submit"
+                        class="bg-primary-container text-on-primary px-8 py-3 rounded-lg font-ui-button text-ui-button hover:bg-primary transition-all active:scale-95 shadow-sm">
+                        Publish Post
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+@endsection
