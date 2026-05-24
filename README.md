@@ -1,58 +1,199 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+# Ink & Paper
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+A modern, minimalist blog platform built with Laravel, designed for writers who value clarity and focus. The platform provides a distraction-free writing environment with a clean, elegant interface inspired by the principles of digital quiet.
 
-## About Laravel
+![Laravel](https://img.shields.io/badge/Laravel-11.x-FF2D20?style=flat-square&logo=laravel)
+![PHP](https://img.shields.io/badge/PHP-8.2+-777BB4?style=flat-square&logo=php)
+![License](https://img.shields.io/badge/License-MIT-green?style=flat-square)
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+## Features
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+- **Distraction-Free Writing Editor**: Clean, minimalist interface designed for focused content creation
+- **Category Management**: Organize content with a flexible category system with slug support
+- **Modern UI/UX**: Built with Tailwind CSS and Material Design principles
+- **Responsive Design**: Fully responsive layout that works seamlessly across all devices
+- **SEO-Friendly**: Built-in slug generation and SEO metadata support
+- **Dashboard Analytics**: Track post performance and engagement metrics
+- **Draft Management**: Save and manage drafts before publishing
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+## Technology Stack
 
-## Learning Laravel
+- **Backend**: Laravel 11.x
+- **Frontend**: Blade Templates, Tailwind CSS
+- **Database**: MySQL/PostgreSQL
+- **Icons**: Google Material Symbols
+- **Fonts**: Inter (UI), Source Serif 4 (Body/Display)
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+## Installation
 
-In addition, [Laracasts](https://laracasts.com) contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+### Prerequisites
 
-You can also watch bite-sized lessons with real-world projects on [Laravel Learn](https://laravel.com/learn), where you will be guided through building a Laravel application from scratch while learning PHP fundamentals.
+- PHP 8.2 or higher
+- Composer
+- Node.js & NPM (for asset compilation)
+- MySQL or PostgreSQL
 
-## Agentic Development
+### Setup Instructions
 
-Laravel's predictable structure and conventions make it ideal for AI coding agents like Claude Code, Cursor, and GitHub Copilot. Install [Laravel Boost](https://laravel.com/docs/ai) to supercharge your AI workflow:
+1. **Clone the repository**
 
-```bash
-composer require laravel/boost --dev
+    ```bash
+    git clone https://github.com/abdullahdheir/sass-blog.git
+    cd sass-blog
+    ```
 
-php artisan boost:install
+2. **Install dependencies**
+
+    ```bash
+    composer install
+    npm install
+    ```
+
+3. **Environment configuration**
+
+    ```bash
+    cp .env.example .env
+    php artisan key:generate
+    ```
+
+4. **Configure database**
+   Edit your `.env` file and set your database credentials:
+
+    ```env
+    DB_CONNECTION=mysql
+    DB_HOST=127.0.0.1
+    DB_PORT=3306
+    DB_DATABASE=ink_and_paper
+    DB_USERNAME=your_username
+    DB_PASSWORD=your_password
+    ```
+
+5. **Run migrations**
+
+    ```bash
+    php artisan migrate
+    ```
+
+6. **Build assets**
+
+    ```bash
+    npm run build
+    ```
+
+7. **Start the development server**
+
+    ```bash
+    php artisan serve
+    ```
+
+    Visit `http://localhost:8000` in your browser.
+
+## Project Structure
+
+```
+├── app/
+│   ├── Http/
+│   │   └── Controllers/
+│   │       ├── CategoryController.php
+│   │       ├── PageController.php
+│   │       └── PostController.php
+│   └── Models/
+│       ├── Category.php
+│       └── Post.php
+├── database/
+│   └── migrations/
+│       ├── 2026_05_24_035439_create_categories_table.php
+│       └── 2026_05_24_035609_create_posts_table.php
+├── resources/
+│   ├── views/
+│   │   ├── layouts/
+│   │   │   ├── dashboard.blade.php
+│   │   │   └── public.blade.php
+│   │   ├── categories/
+│   │   │   ├── index.blade.php
+│   │   │   ├── create.blade.php
+│   │   │   └── edit.blade.php
+│   │   └── posts/
+│   │       ├── index.blade.php
+│   │       ├── create.blade.php
+│   │       ├── edit.blade.php
+│   │       └── show.blade.php
+└── routes/
+    └── web.php
 ```
 
-Boost provides your agent 15+ tools and skills that help agents build Laravel applications while following best practices.
+## Database Schema
+
+### Categories Table
+
+- `id` (Primary Key)
+- `name` (String, Required)
+- `slug` (String, Unique, Required)
+- `description` (Text, Nullable)
+- `created_at`, `updated_at` (Timestamps)
+
+### Posts Table
+
+- `id` (Primary Key)
+- `title` (String, Required)
+- `content` (Text, Required)
+- `category_id` (Foreign Key, Nullable)
+- `created_at`, `updated_at` (Timestamps)
+
+## Usage
+
+### Managing Categories
+
+1. Navigate to `/categories` to view all categories
+2. Click "Create Category" to add a new category
+3. Fill in the name, slug, and optional description
+4. Edit or delete categories from the management view
+
+### Managing Posts
+
+1. Navigate to `/posts` to view the dashboard
+2. Click "Write a post" to create a new post
+3. Enter the title, select a category, and write your content
+4. Publish your post or save as a draft
+5. Edit or delete posts from the dashboard
+
+## Design System
+
+The platform uses a custom design system based on Material Design 3 principles:
+
+- **Color Palette**: Purple primary with neutral surface colors
+- **Typography**: Source Serif 4 for headings and body text, Inter for UI elements
+- **Spacing**: Consistent spacing scale for visual rhythm
+- **Components**: Reusable Blade components for consistency
 
 ## Contributing
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+Contributions are welcome! Please follow these guidelines:
 
-## Code of Conduct
+1. Fork the repository
+2. Create a feature branch (`git checkout -b feature/amazing-feature`)
+3. Commit your changes (`git commit -m 'Add amazing feature'`)
+4. Push to the branch (`git push origin feature/amazing-feature`)
+5. Open a Pull Request
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+### Code Style
 
-## Security Vulnerabilities
-
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+- Follow PSR-12 coding standards
+- Use Laravel conventions for code organization
+- Write clear, descriptive commit messages
+- Add comments for complex logic
 
 ## License
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+This project is open-sourced software licensed under the [MIT license](LICENSE).
+
+## Support
+
+For support, please open an issue on GitHub or contact the maintainers.
+
+## Acknowledgments
+
+- Built with [Laravel](https://laravel.com)
+- Styled with [Tailwind CSS](https://tailwindcss.com)
+- Icons by [Google Material Symbols](https://fonts.google.com/icons)
+- Fonts by [Google Fonts](https://fonts.google.com)
