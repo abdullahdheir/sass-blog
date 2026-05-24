@@ -2,8 +2,8 @@
 
 A modern, minimalist blog platform built with Laravel, designed for writers who value clarity and focus. The platform provides a distraction-free writing environment with a clean, elegant interface inspired by the principles of digital quiet.
 
-![Laravel](https://img.shields.io/badge/Laravel-11.x-FF2D20?style=flat-square&logo=laravel)
-![PHP](https://img.shields.io/badge/PHP-8.2+-777BB4?style=flat-square&logo=php)
+![Laravel](https://img.shields.io/badge/Laravel-13.x-FF2D20?style=flat-square&logo=laravel)
+![PHP](https://img.shields.io/badge/PHP-8.3+-777BB4?style=flat-square&logo=php)
 ![License](https://img.shields.io/badge/License-MIT-green?style=flat-square)
 
 ## Features
@@ -18,7 +18,7 @@ A modern, minimalist blog platform built with Laravel, designed for writers who 
 
 ## Technology Stack
 
-- **Backend**: Laravel 11.x
+- **Backend**: Laravel 13.x
 - **Frontend**: Blade Templates, Tailwind CSS
 - **Database**: MySQL/PostgreSQL
 - **Icons**: Google Material Symbols
@@ -28,7 +28,7 @@ A modern, minimalist blog platform built with Laravel, designed for writers who 
 
 ### Prerequisites
 
-- PHP 8.2 or higher
+- PHP 8.3 or higher
 - Composer
 - Node.js & NPM (for asset compilation)
 - MySQL or PostgreSQL
